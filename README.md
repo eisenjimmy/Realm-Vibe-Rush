@@ -3,7 +3,7 @@
 # 🐱⚔️🐭 Realm Vibe Rush
 
 ### *An idle, single-lane auto-battler where cats reclaim the kingdom's cheese (and Wi-Fi password) from the dreaded Mouse King.*
-
+https://eisenjimmy.github.io/Realm-Vibe-Rush/
 **Tap to summon your fuzzy army · watch them march · smash the enemy keep · evolve · repeat.**
 
 ![Genre](https://img.shields.io/badge/genre-idle%20lane%20battler-ff8a3a)
