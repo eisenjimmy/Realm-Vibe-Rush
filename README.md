@@ -6,6 +6,8 @@
 
 **Tap to summon your fuzzy army · watch them march · smash the enemy keep · evolve · repeat.**
 
+TRY HERER: https://eisenjimmy.github.io/Realm-Vibe-Rush/
+
 ![Genre](https://img.shields.io/badge/genre-idle%20lane%20battler-ff8a3a)
 ![Platform](https://img.shields.io/badge/platform-mobile%20web-3aa0ff)
 ![Tech](https://img.shields.io/badge/tech-vanilla%20JS%20%2B%20canvas-ffd23a)
