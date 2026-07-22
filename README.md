@@ -6,8 +6,6 @@
 
 **Tap to summon your fuzzy army · watch them march · smash the enemy keep · evolve · repeat.**
 
-TRY HERER: https://eisenjimmy.github.io/Realm-Vibe-Rush/
-
 ![Genre](https://img.shields.io/badge/genre-idle%20lane%20battler-ff8a3a)
 ![Platform](https://img.shields.io/badge/platform-mobile%20web-3aa0ff)
 ![Tech](https://img.shields.io/badge/tech-vanilla%20JS%20%2B%20canvas-ffd23a)
@@ -51,7 +49,7 @@ The whole game is **one `index.html` file** rendered on an HTML5 `<canvas>`, wit
 |---|---|
 | 🎯 **Genre** | Idle / auto-battle / single-lane tower defense |
 | 📱 **Target** | Phone-first (caps to phone width on desktop), one-thumb + keyboard |
-| 🧩 **Depth** | 10-element type chart · branching skill trees · evolutions · 100 levels |
+| 🧩 **Depth** | 10-element chart × class rock-paper-scissors · air units · skill trees + evolutions · Commander globals · keep towers · 100 levels |
 | 💾 **Saves** | `localStorage` — Continue anytime, cumulative career highscore |
 | 🌏 **Languages** | English & 한국어, switchable any time |
 | 🖼️ **Art** | Hand-drawn on canvas — zero image files needed |
@@ -92,7 +90,9 @@ python -m http.server 8080
 4. Units **march right and auto-fight**. They pass through each other and pile onto the front line.
 5. Tap the **☄️ Meteor** button (or `Q`) to nuke the whole enemy line — free, on a cooldown. Your one big "oh no you don't" button.
 6. **Destroy the enemy keep** to win the stage, earn 💎 gems + a score, and advance.
-7. Spend gems in the **⚔️ Barracks** to level up, imbue elements, and choose evolution paths.
+7. Spend 💎 gems in the **🛒 SHOP** (splash, or the big **⬆️ UPGRADE** button after a win) to **recruit new units** and invest in each unit's **skill tree**.
+
+**Two combat layers stack on every hit** — the **elemental** type chart *and* a **class** rock-paper-scissors (**melee › ranged › caster › melee**). Watch the skies too: **flying bats can only be hit by ranged/caster units** (Catapults are ground-only!). Both keeps also **auto-fire at nearby foes**, LoL-tower style.
 
 The **battlefield is ~2.4 screens wide** and the **camera scrolls** to follow your vanguard, so pushes feel like a real advance. A red **▶ counter** appears on the right edge when enemies are lurking off-screen.
 
@@ -100,18 +100,32 @@ The **battlefield is ~2.4 screens wide** and the **camera scrolls** to follow yo
 
 ## 🦸 Units
 
-Summon from the bottom bar. Costs are base values (before upgrades).
+Summon from the bottom bar. Cost scales with power; class matters (see below).
 
-| # | Unit | ◆ Cost | Role | Notes |
-|---|------|-------:|------|-------|
-| 1 | **Warrior** | 50 | Melee | Cheap, balanced front-liner |
-| 2 | **Archer** | 70 | Ranged | Fires arrows from safety |
-| 3 | **Barbarian** | 100 | Melee | High damage, big axe |
-| 4 | **Knight** | 130 | Melee | Tanky wall, soaks hits |
-| 5 | **Mage** | 170 | Ranged | Splash magic, hits groups |
-| 6 | **Healer** | 120 | Support | Heals the nearest wounded ally |
+| # | Unit | ◆ Cost | Class | Notes |
+|---|------|-------:|-------|-------|
+| 1 | **Warrior** | 50 | Melee | Cheap, sturdy front-liner. *Starter* |
+| 2 | **Archer** | 65 | Ranged | Arrows from safety; **can hit air**. *Starter* |
+| 3 | **Barbarian** | 110 | Melee | Big axe, heavy single-target damage. *Recruit 💎25* |
+| 4 | **Catapult** | 145 | Ranged | Siege AoE, monster damage — **ground-only, can't hit air**. *Recruit 💎40* |
+| 5 | **Mage** | 175 | Caster | **Wide** splash magic, lower per-hit. *Recruit 💎55* |
+| 6 | **Healer** | 120 | Support | Heals the nearest wounded ally. *Starter* |
 
-Enemies (Mouse Grunt, Rat Brute, Dark Slinger, Rat Warlock, Frost Yeti) mirror these roles, and **every 10th stage** unleashes a named **👹 BOSS** with a massive health pool.
+You **start with Warrior, Archer & Healer** — recruit the rest with gems in the Shop. *(Knight retired as a standalone unit — he's now the Warrior's **Guardian** skill branch.)*
+
+Enemies — **Mouse Grunt, Rat Brute, Dark Slinger, Rat Warlock, Frost Yeti**, and the ranged-only **Fang Bat** (flying) — mirror these classes, drawn from a per-stage weighted pool, with a named **👹 BOSS** every 10th stage.
+
+---
+
+## ⚔️ Class matchup & the skies
+
+On top of elements, every unit and enemy has a **class** in a rock-paper-scissors:
+
+> **🗡️ Melee › 🏹 Ranged › ✨ Caster › 🗡️ Melee** &nbsp;·&nbsp; **Support** is neutral
+
+Beating your target's class deals **×1.35**; losing deals **×0.75**. So Warrior (melee) crushes Archer (ranged), Mage (caster) melts Warrior, Archer out-ranges Mage. This multiplies with the elemental chart — a double-counter can hit **×2**, a double-mismatch under **×0.5**.
+
+**Air:** **Fang Bats fly** and can *only* be attacked by **ranged/caster** units — bring Archers or Mages or they'll chew your keep. **Catapults are ground-only** (`noAir`) and ignore flyers entirely.
 
 ---
 
@@ -138,45 +152,48 @@ The full chart lives in [`data/types.json`](data/types.json) — tweak `strongMu
 
 ---
 
-## 🌳 Upgrade trees — paths, elements & evolution
+## 🌳 The Shop — Diablo-style skill trees & Commander
 
-Open the **⚔️ Barracks** (from the splash or the end-of-stage screen). Each unit has **three independent upgrade axes**:
+Open the **🛒 SHOP** from the splash or the big **⬆️ UPGRADE** button after a win. Everything costs **💎 gems** (earned each clear) and **resets for free** any time (`↺`).
 
-### 1. 🌿 Skill-tree **Paths** *(free · committed · resettable)*
-Each unit can commit to **one of two branching paths** that genuinely change how it plays. Paths are **power-neutral trades** (a give-and-take), so there's no single "best" pick — only what fits the stage. Choose freely, and hit **↺ Reset paths** any time (free) to re-spec.
+### ⚔️ Units tab — one committed skill tree per unit
+Pick a unit from the strip, then spend gems down a **branching tree** rendered as a node graph with connectors:
 
-| Unit | Path A | Path B |
+1. **Recruit** locked units first (Barbarian 💎25 · Catapult 💎40 · Mage 💎55).
+2. From the **root, commit to ONE of two branches** — the other locks until you reset.
+3. Walk **4 tiers** in order, each gem-gated:
+   - **Tier 1 — Branch identity:** reshapes stats, weapon, silhouette & palette.
+   - **Tier 2 — Stat node.**
+   - **Tier 3 — Element node:** the **only** way to imbue an element (🔥💧⚡…). It's *earned deep in the tree*, never a free toggle.
+   - **Tier 4 — Capstone.**
+
+Owned nodes visibly **evolve** the unit: **⭐ at 2 nodes**, **🌟 True Form at 4** (cape → pauldrons → aura + crown). Branches genuinely change behaviour:
+
+| Unit | Branch A | Branch B |
 |---|---|---|
-| **Warrior** | 🛡️ *Guardian* — +HP, softer/slower (tank) | 🪓 *Berserker* — huge DMG, fragile & fast |
-| **Archer** | 🏹 *Ranger* — longer range, harder shots | 🗡️ *Thief* — **becomes melee!** fast & stabby, no longer ranged |
-| **Barbarian** | *Warlord* — tankier bruiser | *Raider* — blazing fast glass hitter |
-| **Knight** | *Paladin* — immovable HP wall | *Crusader* — heavy-hitting axe |
-| **Mage** | *Archmage* — big AoE splash | *Warlock* — single-target nuke, no splash |
-| **Healer** | *Cleric* — big heals, long reach | *Medic* — rapid, smaller heals |
+| **Warrior** | 🛡️ Guardian — the old Knight, tanky (⚙️ Metal) | 🪓 Berserker — reckless DPS (🔥 Fire) |
+| **Archer** | 🏹 Ranger — sniper (⚡ Lightning) | 🗡️ Thief — **becomes melee!** (☠️ Poison) |
+| **Barbarian** | Warlord — 🪨 Earth juggernaut | Raider — 🔥 Fire blitz |
+| **Catapult** | Bombard — 💧/🔥 wider splash | Trebuchet — longer & heavier |
+| **Mage** | Archmage — 💧 wider AoE | Warlock — ☠️ single-target nuke |
+| **Healer** | Cleric — ✨ big heals | Medic — rapid triage |
 
-> The **Archer → Thief** transformation literally swaps the unit's role (ranged → melee), weapon (bow → blade), range, and look — the headline example of paths that *do different things*.
+> **Archer → Thief** literally swaps role (ranged → melee), weapon (bow → blade), range & look — the headline example of a branch that *changes how the unit plays*.
 
-### 2. ☄️ **Element imbue** *(costs 💎 gems)*
-Assign any of the 10 elements to a unit so its attacks exploit the type chart. Revert to Normal for free.
-
-### 3. ⬆️ **Level-up** *(costs 💎 gems, Lv 0→8)*
-Raw power: **+12% HP & damage per level**. This is where actual strength comes from — the same curve regardless of path, keeping balance clean.
-
-### ✨ **Evolution** *(automatic, cosmetic milestone)*
-As a unit **levels up**, it visually **evolves** — the reward is *look*, not a power spike, so balance stays intact:
-- **Level 4 → ⭐ Evolved:** flowing cape, gold pauldrons, larger silhouette.
-- **Level 8 → 🌟 True Form:** radiant aura, golden crown, twinkle, grandest size.
-
-Your chosen **path** also reshapes the unit's silhouette, headgear, weapon, and palette — so a maxed, imbued, fully-pathed unit looks unmistakably *yours*.
+### 👑 Commander tab — global upgrades *(bought before battle, apply every run)*
+- **Meteor Power** — bigger Meteor damage.
+- **Meteor Cadence** — shorter Meteor cooldown.
+- **War Economy** — more gold income.
+- **Keep Ballista** — stronger auto-firing keep towers.
 
 ---
 
 ## 🏆 Scoring & progression
 
-- **100 hand-tuned levels.** Levels **1–10** are a gentle tutorial ramp; **11+** lean hard on elemental counters, dual-element maps, and bosses every 10th stage. Beyond 100, difficulty keeps scaling for the truly obsessed.
+- **100 levels.** Levels **1–3** are a gentle tutorial (grunts only, cheap keeps); **4+** ramps hard — air units, class/element counters, **dual-element** maps from 25, and a **👹 boss every 10th stage**. Beyond 100, difficulty keeps scaling for the truly obsessed.
 - **Per-stage score** = clear speed **+** keep HP remaining **+** total gold earned **+** value of your surviving army. Beat your best for a **★ NEW HIGH SCORE ★** and bonus gems.
 - **Cumulative career highscore** (sum of every stage's best) is pinned to the **🏆 top banner at all times**, on every screen.
-- **💎 Gems** are earned each clear and spent in the Barracks.
+- **💎 Gems** are earned each clear and spent in the Shop.
 - **💾 Auto-save** via `localStorage` (versioned schema with a migration hook). Hit **CONTINUE** on the splash to jump back to your furthest level.
 - **📸 Share Card** — at any stage-end, generate a **PNG image card** showing your score, cumulative highscore, and every unit's chosen path/element/level. Shares via the native share sheet on mobile, or downloads a PNG on desktop.
 
@@ -186,11 +203,13 @@ Your chosen **path** also reshapes the unit's silhouette, headgear, weapon, and 
 
 | Input | Action |
 |---|---|
-| **Tap card** / `1`–`6` | Summon Warrior / Archer / Barbarian / Knight / Mage / Healer |
-| **Tap ☄️** / `Q` | Cast Meteor (AoE nuke, on cooldown) |
+| **Tap card** / `1`–`6` | Summon Warrior / Archer / Barbarian / Catapult / Mage / Healer (locked ones open the Shop) |
+| **Tap ☄️** / `Q` | Cast Meteor (AoE Fire nuke — hits air too, on cooldown) |
 | `Space` | Pause / resume (or start on menus) |
 | **⚙️ gear** | Settings — language & volume, any time |
 | **⏸** | Pause |
+
+Both **keeps auto-fire** at nearby foes with no input — upgrade yours via *Keep Ballista* in the Shop's Commander tab.
 
 Every button is deliberately **juicy** — squash-and-stretch pops, click blips, and satisfying feedback everywhere.
 
@@ -203,8 +222,8 @@ Realm Vibe Rush/
 ├── index.html            # the entire game (canvas + audio + logic + UI)
 ├── README.md             # you are here
 ├── data/                 # JSON content (source of truth when served)
-│   ├── units.json        # the 6 playable units (stats + look + base element)
-│   ├── enemies.json      # enemy roster (mouse, brute, slinger, warlock, yeti)
+│   ├── units.json        # 6 playable units (stats + class + look + base element)
+│   ├── enemies.json      # enemy roster (mouse, brute, slinger, warlock, yeti, flying bat)
 │   ├── stages.json       # 100 generated levels (themes, rosters, bosses, curve)
 │   └── types.json        # 10-element effectiveness chart
 └── scripts/
@@ -217,12 +236,12 @@ Realm Vibe Rush/
 
 Most content is JSON — no code needed. **Serve the folder** (see Quick start) so edits load, then refresh.
 
-- **Tune a unit:** edit `data/units.json` (`hp`, `dmg`, `range`, `atk`, `speed`, `cost`, `cd`, palette).
-- **Rebalance the type chart:** edit `data/types.json` (`strongMult`, `weakMult`, per-type `strong`/`weak` arrays).
+- **Tune a unit:** edit `data/units.json` (`hp`, `dmg`, `range`, `atk`, `speed`, `cost`, `cls`, `noAir`, `flying`, palette).
+- **Rebalance the type chart:** edit `data/types.json` (`strongMult`, `weakMult`, per-type `strong`/`weak`). Class multipliers live in `CLS_BEATS`/`classMult` in `index.html`.
 - **Change a stage:** edit an entry in `data/stages.json` (`baseHp`, `income`, `budgetRate`, `roster`, `boss`, palette).
-- **Add a skill-tree path:** paths currently live in the `PATHS` table inside `index.html` — add an entry with `mul` (stat multipliers), optional `set` (hard overrides like `role`/`weapon`/`range`), and `look` (head/weapon/palette).
+- **Edit a skill tree / globals / starting units:** these live in `index.html` — `TREE_SPEC` (branch nodes: `mul` stat multipliers, `set` hard overrides like `role`/`weapon`/`range`, `look`, tier-3 `el.element`), `GLOBALS` (Commander upgrades), `START_OWNED` + `UNLOCK_COST` (which units you begin with / recruit prices).
 
-> ⚠️ The offline fallback inside `index.html` mirrors `data/*.json`. If you change a JSON file and also want offline play to match, update the corresponding inline `FALLBACK` block (units/enemies/types) — stages regenerate automatically from `buildLevels()`.
+> ⚠️ The offline fallback inside `index.html` mirrors `data/*.json`. If you change `units`/`enemies`/`types`, update the matching inline `FALLBACK` block too (stages regenerate automatically from `buildLevels()`). Save schema is **v2** — old saves auto-migrate (meta kept, trees reset).
 
 ---
 
@@ -240,10 +259,10 @@ The same `buildLevels()` body is mirrored inside `index.html`. Tweak the difficu
 
 ## 🗺️ Roadmap
 
-- [ ] **Procedural art polish** — the game renders characters procedurally (cohesive, zero-asset, and flexible enough to tint by element / re-skin by path / evolve). Future work is richer shading, palettes, and detail — kept behind a single render seam so a sprite-sheet swap remains possible later if desired.
-- [ ] Tier-2 skill nodes (a second fork per unit).
+- [ ] **Procedural art polish** — characters render procedurally (cohesive, zero-asset, flexible enough to tint by element / re-skin by branch / evolve). Future work: richer shading & detail, behind a single render seam.
+- [ ] Second branch fork deeper in each tree (tiers 5–6).
+- [ ] More flying/siege enemy variety and boss mechanics.
 - [ ] Endless / daily-challenge mode.
-- [ ] More boss mechanics and stage gimmicks.
 
 ---
 

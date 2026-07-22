@@ -1,16 +1,14 @@
 /* ============================================================================
    Realm Vibe Rush — level generator (single source of truth)
    Produces data/stages.json (100 levels). The SAME buildLevels() body is
-   mirrored into index.html as the offline (file://) fallback, so served and
-   offline play are identical. Regenerate:  node scripts/gen-stages.js
-   Deterministic (seeded RNG) so output never drifts.
+   mirrored into index.html as the offline (file://) fallback.
+   Regenerate:  node scripts/gen-stages.js   ·   Deterministic (seeded RNG).
 ========================================================================== */
 'use strict';
 
 // ---- keep this function byte-identical to buildLevels() in index.html ----
 function buildLevels(){
-  const TYPES=['Normal','Metal','Monster','Fire','Water','Earth','Lightning','Poison','Ghost','Arcane'];
-  // visual palette + base enemy shapes per element (5 shapes reskinned via element tint)
+  const TYPESN=['Normal','Metal','Monster','Fire','Water','Earth','Lightning','Poison','Ghost','Arcane'];
   const THEME={
     Normal:   {theme:'day',  sky:['#bfe7ff','#cfeecb','#e9f5c9'], ground:['#5ba14a','#3f7d33','#2f5f27'], hillFar:'#a7d98f',hillNear:'#7cc267',tree:'#3f8f4a'},
     Metal:    {theme:'day',  sky:['#c9d2dc','#aeb8c4','#8f99a6'], ground:['#8a8f96','#6f747c','#565b62'], hillFar:'#9aa3ad',hillNear:'#7c848c',tree:'#5a6b5a'},
@@ -23,77 +21,37 @@ function buildLevels(){
     Ghost:    {theme:'night',sky:['#3a2b5c','#4a3170','#5a3d7a'], ground:['#3a3450','#2a2540','#1a1730'], hillFar:'#4a3f66',hillNear:'#38304f',tree:'#2f3a5a'},
     Arcane:   {theme:'night',sky:['#1c2a5c','#2f3d8a','#4a5db0'], ground:['#2a2f5a','#1f2444','#12172a'], hillFar:'#3a4f8f',hillNear:'#2f3d6a',tree:'#3a4a8f'},
   };
-  // which enemy shapes are allowed as difficulty grows
-  const SHAPES_EASY=['mouse','mouse','slinger'];
-  const SHAPES_MID=['mouse','slinger','brute'];
-  const SHAPES_HARD=['slinger','brute','warlock','yeti'];
-  const NAMES={
-    Normal:['Green Meadow','Sunny Field','Rolling Downs','Quiet Pasture'],
-    Metal:['Iron Gate','Steelworks','Rustpile Ridge','The Foundry'],
-    Monster:['Beast Hollow','Fang Thicket','Howling Woods','Den of Maws'],
-    Fire:['Ember Ridge','Molten Pass','Cinder Wastes','Ashfall Rim'],
-    Water:['Tidal Shore','Coral Reach','Sunken Causeway','Mistport'],
-    Earth:['Dust Canyon','Boulder Pass','Clay Flats','Quarry Road'],
-    Lightning:['Storm Mesa','Thunder Peak','Static Fields','Voltcrag'],
-    Poison:['Toxic Marsh','Bog of Fumes','Blight Fen','Miasma Reach'],
-    Ghost:['Haunted Graveyard','Wraith Hollow','Moonlit Crypt','Pale Cairn'],
-    Arcane:['Rune Nexus','Astral Verge','The Weave','Starfall Sanctum'],
-  };
-  // seeded RNG so generation is deterministic
-  function rng(seed){ let a=seed>>>0; return function(){ a|=0;a=a+0x6D2B79F5|0; let t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
+  function shapesFor(L){
+    if(L<=3)  return ['mouse','mouse'];                                 // tutorial: grunts only
+    if(L<=6)  return ['mouse','mouse','slinger','bat'];                 // ~25% air
+    if(L<=10) return ['mouse','slinger','slinger','brute','bat'];
+    if(L<=30) return ['mouse','slinger','brute','brute','bat','warlock'];
+    return ['slinger','brute','brute','warlock','yeti','bat'];          // late: heavies
+  }
+  const NAMES={Normal:['Green Meadow','Sunny Field','Rolling Downs','Quiet Pasture'],Metal:['Iron Gate','Steelworks','Rustpile Ridge','The Foundry'],Monster:['Beast Hollow','Fang Thicket','Howling Woods','Den of Maws'],Fire:['Ember Ridge','Molten Pass','Cinder Wastes','Ashfall Rim'],Water:['Tidal Shore','Coral Reach','Sunken Causeway','Mistport'],Earth:['Dust Canyon','Boulder Pass','Clay Flats','Quarry Road'],Lightning:['Storm Mesa','Thunder Peak','Static Fields','Voltcrag'],Poison:['Toxic Marsh','Bog of Fumes','Blight Fen','Miasma Reach'],Ghost:['Haunted Graveyard','Wraith Hollow','Moonlit Crypt','Pale Cairn'],Arcane:['Rune Nexus','Astral Verge','The Weave','Starfall Sanctum']};
+  function rng(seed){ let a=seed>>>0; return function(){ a|=0;a=a+0x6D2B79F5|0; let x=Math.imul(a^a>>>15,1|a); x=x+Math.imul(x^x>>>7,61|x)^x; return ((x^x>>>14)>>>0)/4294967296; }; }
   const pick=(r,arr)=>arr[Math.floor(r()*arr.length)];
-
   const levels=[];
   for(let L=1; L<=100; L++){
-    const r=rng(L*2654435761);
-    const boss = (L%10===0);
-    // element theme
+    const r=rng(L*2654435761); const boss=(L%10===0);
     let element, element2=null;
-    if(L<=5){ element='Normal'; }
-    else if(L<=10){ element = L===10 ? 'Fire' : ['Normal','Normal','Metal','Poison','Water'][(L-6)%5]; } // gentle intro
-    else {
-      element = TYPES[1 + ((L-11) % 9)]; // cycle non-Normal elements
-      if(L>=25) element2 = TYPES[1 + ((L-11+3) % 9)]; // dual-element from L25
-      if(element2===element) element2=null;
-    }
-    const th = THEME[element] || THEME.Normal;
-
-    // difficulty curve
-    const baseHp = L<=10 ? Math.round(480 + L*95) : Math.round(1450 * Math.pow(1.046, L-10));
-    const startGold = L<=10 ? 165 : 150 + Math.floor(L/6)*10;
-    const income = Math.round((9 + L*0.32) * 10)/10;
-    const budgetRate = L<=10 ? Math.round((3.5 + L*0.32)*10)/10 : Math.round((6.2 + (L-10)*0.42)*10)/10;
-
-    // roster of enemy shapes, tagged with element(s)
-    const shapes = L<=10 ? SHAPES_EASY : (L<=30 ? SHAPES_MID : SHAPES_HARD);
-    const count = L<=10 ? 4 : 5;
-    const roster=[];
-    for(let i=0;i<count;i++){
-      const t = pick(r, shapes);
-      const el = (element2 && r()<0.4) ? element2 : element;
-      roster.push({t, el});
-    }
-    // boss
-    let bossDef=null;
-    if(boss){
-      const bt = L>=50 ? 'yeti' : (L>=20 ? 'brute' : 'yeti');
-      bossDef = { t:bt, el:element, hpMul: 5 + Math.floor(L/20), name:'Warlord '+pick(r,['Grimtail','Cinderfang','Vorlok','Mossback','Ironhide']) };
-    }
-
-    // rewards + score par
-    const reward = (L<=10?3:5+Math.floor(L/10)*2) + (boss?15:0);
-    const parTime = Math.round(18 + baseHp/55);
-
-    levels.push({
-      level:L, name:(NAMES[element]?pick(r,NAMES[element]):'Stage')+' ',
-      theme:th.theme, element, element2,
-      baseHp, startGold, income, budgetRate,
-      roster, boss:bossDef, reward, parTime,
-      sky:th.sky, ground:th.ground, hillFar:th.hillFar, hillNear:th.hillNear, tree:th.tree,
-      tutorial: L<=10
-    });
-    // clean trailing space in name + append Lv tag for clarity
-    levels[levels.length-1].name = levels[levels.length-1].name.trim() + ' · Lv'+L;
+    if(L<=3){ element='Normal'; }
+    else if(L<=10){ element = L===10 ? 'Fire' : ['Metal','Poison','Water','Fire','Metal','Poison','Water'][(L-4)%7]; }
+    else { element=TYPESN[1+((L-11)%9)]; if(L>=25) element2=TYPESN[1+((L-11+3)%9)]; if(element2===element) element2=null; }
+    const th=THEME[element]||THEME.Normal;
+    // difficulty curve: 1-3 easy, sharp jump at 4+, exponential after
+    const baseHp = L<=3 ? Math.round(300 + L*70) : Math.round(700 * Math.pow(1.072, L-4));
+    const startGold = L<=3 ? 200 : 150 + Math.floor(L/6)*10;
+    const income = L<=3 ? 12 : Math.round((9.5 + L*0.28)*10)/10;
+    const budgetRate = L<=3 ? Math.round((2.0 + L*0.2)*10)/10 : Math.round((4.8 + (L-4)*0.4)*10)/10;
+    // roster is a weighted spawn pool (AI draws uniformly); duplicates weight it
+    const roster = shapesFor(L).map((tt,idx)=>({ t:tt, el:(element2 && idx%2===1)?element2:element }));
+    if(L>3){ const feat=roster[Math.floor(r()*roster.length)].t; roster.push({t:feat,el:element},{t:feat,el:element}); } // per-stage featured bias
+    let bossDef=null; if(boss){ const bt=L>=50?'yeti':(L>=20?'brute':'yeti'); bossDef={t:bt,el:element,hpMul:5+Math.floor(L/20),name:'Warlord '+pick(r,['Grimtail','Cinderfang','Vorlok','Mossback','Ironhide'])}; }
+    const reward=(L<=3?3:5+Math.floor(L/10)*2)+(boss?15:0);
+    const parTime=Math.round(18+baseHp/55);
+    const nm=(NAMES[element]?pick(r,NAMES[element]):'Stage').trim()+' · Lv'+L;
+    levels.push({level:L,name:nm,theme:th.theme,element,element2,baseHp,startGold,income,budgetRate,roster,boss:bossDef,reward,parTime,sky:th.sky,ground:th.ground,hillFar:th.hillFar,hillNear:th.hillNear,tree:th.tree,tutorial:L<=3});
   }
   return levels;
 }
@@ -105,8 +63,6 @@ if (typeof module!=='undefined' && require.main===module){
   fs.writeFileSync(out, JSON.stringify(buildLevels(), null, 0));
   const lv=buildLevels();
   console.log('Wrote '+lv.length+' levels -> '+out);
-  console.log('L1:', JSON.stringify(lv[0]).slice(0,120));
-  console.log('L15:', JSON.stringify(lv[14]).slice(0,140));
-  console.log('L100:', JSON.stringify(lv[99]).slice(0,140));
+  [1,3,4,10,50,100].forEach(n=>console.log('L'+n+':', JSON.stringify(lv[n-1]).slice(0,150)));
 }
 module.exports = { buildLevels };
