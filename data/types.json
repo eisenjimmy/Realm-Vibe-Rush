@@ -1,0 +1,17 @@
+{
+  "_doc": "Elemental type chart. mult = attacker deals x damage vs defender. strong=1.5, weak=0.6, neutral=1. Tune freely.",
+  "strongMult": 1.5,
+  "weakMult": 0.6,
+  "types": {
+    "Normal":    { "color":"#d8cfbf", "glyph":"⭐", "strong":[],                    "weak":["Metal","Ghost"] },
+    "Metal":     { "color":"#aeb8c4", "glyph":"⚙️", "strong":["Monster","Poison"], "weak":["Fire","Lightning"] },
+    "Monster":   { "color":"#7a4aa0", "glyph":"👹", "strong":["Arcane","Normal"],  "weak":["Metal","Fire"] },
+    "Fire":      { "color":"#ff6a3a", "glyph":"🔥", "strong":["Metal","Monster"],  "weak":["Water","Earth"] },
+    "Water":     { "color":"#3aa0ff", "glyph":"💧", "strong":["Fire","Earth"],     "weak":["Lightning","Poison"] },
+    "Earth":     { "color":"#c98a3a", "glyph":"🪨", "strong":["Lightning","Poison"], "weak":["Water","Fire"] },
+    "Lightning": { "color":"#ffd23a", "glyph":"⚡", "strong":["Water","Metal"],      "weak":["Earth","Ghost"] },
+    "Poison":    { "color":"#7fd13a", "glyph":"☠️", "strong":["Water","Monster"],  "weak":["Earth","Metal"] },
+    "Ghost":     { "color":"#9fb0d8", "glyph":"👻", "strong":["Normal","Arcane"],  "weak":["Metal","Monster"] },
+    "Arcane":    { "color":"#c060ff", "glyph":"✨", "strong":["Ghost","Metal"],      "weak":["Monster","Poison"] }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "mouse":   { "name":"Mouse Grunt", "hp":90,  "dmg":14, "range":26,  "atk":0.8, "speed":56, "role":"melee",  "weapon":"club", "head":"none",   "ears":"mouse", "budget":22, "pal":{"skin":"#b7b0a4","fur":"#9c948a","cloth":"#6b3f2a","cloth2":"#3f2417","metal":"#9aa0a6","hair":"#2f1c12"} },
+  "brute":   { "name":"Rat Brute",   "hp":300, "dmg":24, "range":30,  "atk":1.0, "speed":36, "role":"melee",  "weapon":"axe",  "head":"horns",  "ears":"mouse", "budget":55, "pal":{"skin":"#8a8278","fur":"#6f675d","cloth":"#3a2a3f","cloth2":"#7a4a24","metal":"#8a8f96","hair":"#1a1a1a"} },
+  "slinger": { "name":"Dark Slinger","hp":70,  "dmg":18, "range":200, "atk":1.1, "speed":52, "role":"ranged", "proj":"arrow", "weapon":"bow", "head":"hood", "ears":"mouse", "budget":40, "pal":{"skin":"#b0a89c","fur":"#948c80","cloth":"#402a4a","cloth2":"#a06fd0","metal":"#7a5a2a","hair":"#120a1a"} },
+  "warlock": { "name":"Rat Warlock", "hp":110, "dmg":30, "range":180, "atk":1.6, "speed":40, "role":"ranged", "proj":"magic", "splash":40, "weapon":"staff","head":"wizhat","ears":"mouse", "budget":70, "pal":{"skin":"#9a9288","fur":"#7c746a","cloth":"#5a1f3f","cloth2":"#ff6fae","metal":"#ff6f9f","hair":"#e0e0e0"} },
+  "yeti":    { "name":"Frost Yeti",  "hp":520, "dmg":34, "range":32,  "atk":1.1, "speed":30, "role":"melee",  "weapon":"club", "head":"horns",  "ears":"none",  "budget":95, "pal":{"skin":"#dff0ff","fur":"#bfe0f5","cloth":"#3a6b8f","cloth2":"#9fd0ef","metal":"#cfe8ff","hair":"#7fb8dd"} }
+}
