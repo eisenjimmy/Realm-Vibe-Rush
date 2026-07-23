@@ -1,0 +1,13 @@
+{
+  "source": "https://craftpix.net/product/amazon-woman-sprite-sheets-pixel-art/",
+  "id": "amazon-sword",
+  "name": "Amazon Swordswoman",
+  "anims": {
+    "idle": 6,
+    "walk": 8,
+    "attack": 6,
+    "hurt": 4,
+    "dead": 4
+  },
+  "frameHeight": 56
+}

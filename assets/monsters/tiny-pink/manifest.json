@@ -1,0 +1,35 @@
+{
+  "source": "https://craftpix.net/freebies/free-pixel-art-tiny-hero-sprites/",
+  "name": "Kitty Buddy",
+  "license": "CraftPix freebie \u2014 royalty free, credit appreciated",
+  "game": {
+    "frameH": 48,
+    "anims": {
+      "idle": {
+        "n": 6,
+        "w": 46,
+        "h": 48
+      },
+      "walk": {
+        "n": 9,
+        "w": 43,
+        "h": 48
+      },
+      "attack": {
+        "n": 6,
+        "w": 44,
+        "h": 48
+      },
+      "hurt": {
+        "n": 4,
+        "w": 33,
+        "h": 48
+      },
+      "dead": {
+        "n": 7,
+        "w": 43,
+        "h": 48
+      }
+    }
+  }
+}

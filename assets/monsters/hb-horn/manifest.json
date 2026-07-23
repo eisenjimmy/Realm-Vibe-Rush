@@ -1,0 +1,13 @@
+{
+  "source": "https://craftpix.net/product/hell-boss-sprite-sheets-pixel-art/",
+  "id": "hb-horn",
+  "name": "Hell Horn",
+  "anims": {
+    "idle": 4,
+    "walk": 4,
+    "attack": 2,
+    "hurt": 4,
+    "dead": 6
+  },
+  "frameHeight": 64
+}

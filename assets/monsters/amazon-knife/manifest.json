@@ -1,0 +1,13 @@
+{
+  "source": "https://craftpix.net/product/amazon-woman-sprite-sheets-pixel-art/",
+  "id": "amazon-knife",
+  "name": "Amazon Huntress",
+  "anims": {
+    "idle": 6,
+    "walk": 8,
+    "attack": 6,
+    "hurt": 3,
+    "dead": 4
+  },
+  "frameHeight": 56
+}

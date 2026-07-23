@@ -1,0 +1,33 @@
+{
+  "source": "https://craftpix.net/product/swat-2d-pixel-art-character-sprite-pack/",
+  "game": {
+    "frameH": 72,
+    "anims": {
+      "idle": {
+        "n": 7,
+        "w": 37,
+        "h": 72
+      },
+      "walk": {
+        "n": 8,
+        "w": 38,
+        "h": 72
+      },
+      "attack": {
+        "n": 5,
+        "w": 75,
+        "h": 72
+      },
+      "hurt": {
+        "n": 3,
+        "w": 44,
+        "h": 72
+      },
+      "dead": {
+        "n": 4,
+        "w": 68,
+        "h": 72
+      }
+    }
+  }
+}

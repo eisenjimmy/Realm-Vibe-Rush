@@ -1,0 +1,12 @@
+{
+  "source": "https://craftpix.net/product/priest-pixel-art-character-sprite-sheets-pack/",
+  "id": "priest",
+  "name": "Priestess",
+  "anims": {
+    "idle": 8,
+    "walk": 8,
+    "attack": 8,
+    "hurt": 2,
+    "dead": 3
+  }
+}

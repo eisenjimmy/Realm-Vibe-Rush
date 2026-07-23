@@ -1,0 +1,14 @@
+{
+  "source": "https://craftpix.net/product/tiny-monsters-pixel-art-pack/",
+  "id": "tm-slime",
+  "name": "Purple Slime",
+  "sheet": "Pack4",
+  "anims": {
+    "idle": 4,
+    "walk": 4,
+    "attack": 4,
+    "hurt": 4,
+    "dead": 4
+  },
+  "frameHeight": 48
+}

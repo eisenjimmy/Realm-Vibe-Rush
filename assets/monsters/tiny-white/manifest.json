@@ -1,0 +1,35 @@
+{
+  "source": "https://craftpix.net/freebies/free-pixel-art-tiny-hero-sprites/",
+  "name": "Ghost Buddy",
+  "license": "CraftPix freebie \u2014 royalty free, credit appreciated",
+  "game": {
+    "frameH": 48,
+    "anims": {
+      "idle": {
+        "n": 6,
+        "w": 47,
+        "h": 48
+      },
+      "walk": {
+        "n": 9,
+        "w": 45,
+        "h": 48
+      },
+      "attack": {
+        "n": 4,
+        "w": 37,
+        "h": 48
+      },
+      "hurt": {
+        "n": 4,
+        "w": 35,
+        "h": 48
+      },
+      "dead": {
+        "n": 6,
+        "w": 43,
+        "h": 48
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "source": "https://craftpix.net/product/tiny-monsters-pixel-art-pack/",
+  "id": "tm-beast",
+  "name": "Violet Beast",
+  "sheet": "Pack5",
+  "anims": {
+    "idle": 4,
+    "walk": 4,
+    "attack": 8,
+    "hurt": 4,
+    "dead": 6
+  },
+  "frameHeight": 48
+}

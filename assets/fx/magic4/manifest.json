@@ -1,0 +1,112 @@
+{
+  "source": "https://craftpix.net/product/magic-effects-pixel-art-asset-pack-4/",
+  "effects": {
+    "swords": {
+      "n": 9,
+      "w": 160,
+      "h": 357
+    },
+    "death_punch": {
+      "n": 5,
+      "w": 206,
+      "h": 165
+    },
+    "acid": {
+      "n": 14,
+      "w": 152,
+      "h": 162
+    },
+    "bubble": {
+      "n": 7,
+      "w": 95,
+      "h": 81
+    },
+    "cube": {
+      "n": 7,
+      "w": 157,
+      "h": 125
+    },
+    "fire_blast": {
+      "n": 8,
+      "w": 128,
+      "h": 154
+    },
+    "fire": {
+      "n": 8,
+      "w": 83,
+      "h": 116
+    },
+    "poison": {
+      "n": 8,
+      "w": 99,
+      "h": 129
+    },
+    "implosion": {
+      "n": 10,
+      "w": 206,
+      "h": 164
+    }
+  },
+  "game": {
+    "magic_proj": {
+      "n": 8,
+      "w": 83,
+      "h": 116,
+      "from": "fire"
+    },
+    "poison_proj": {
+      "n": 8,
+      "w": 99,
+      "h": 129,
+      "from": "poison"
+    },
+    "water_proj": {
+      "n": 7,
+      "w": 95,
+      "h": 81,
+      "from": "bubble"
+    },
+    "hit_slash": {
+      "n": 9,
+      "w": 160,
+      "h": 357,
+      "from": "swords"
+    },
+    "hit_acid": {
+      "n": 14,
+      "w": 152,
+      "h": 162,
+      "from": "acid"
+    },
+    "hit_boom": {
+      "n": 10,
+      "w": 206,
+      "h": 164,
+      "from": "implosion"
+    },
+    "meteor": {
+      "n": 8,
+      "w": 128,
+      "h": 154,
+      "from": "fire_blast"
+    },
+    "cast": {
+      "n": 7,
+      "w": 157,
+      "h": 125,
+      "from": "cube"
+    },
+    "heal": {
+      "n": 7,
+      "w": 95,
+      "h": 81,
+      "from": "bubble"
+    },
+    "fist": {
+      "n": 5,
+      "w": 206,
+      "h": 165,
+      "from": "death_punch"
+    }
+  }
+}

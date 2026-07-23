@@ -1,0 +1,34 @@
+{
+  "source": "https://craftpix.net/freebies/free-samurai-pixel-art-sprite-sheets/",
+  "name": "Samurai",
+  "game": {
+    "frameH": 72,
+    "anims": {
+      "idle": {
+        "n": 6,
+        "w": 48,
+        "h": 72
+      },
+      "walk": {
+        "n": 6,
+        "w": 108,
+        "h": 72
+      },
+      "attack": {
+        "n": 5,
+        "w": 100,
+        "h": 72
+      },
+      "hurt": {
+        "n": 3,
+        "w": 107,
+        "h": 72
+      },
+      "dead": {
+        "n": 4,
+        "w": 110,
+        "h": 72
+      }
+    }
+  }
+}

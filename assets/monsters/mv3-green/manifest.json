@@ -1,0 +1,13 @@
+{
+  "source": "https://craftpix.net/product/monster-v3-character-sprites/",
+  "id": "mv3-green",
+  "name": "Green Snapper",
+  "anims": {
+    "idle": 4,
+    "walk": 8,
+    "attack": 6,
+    "hurt": 3,
+    "dead": 5
+  },
+  "frameHeight": 72
+}

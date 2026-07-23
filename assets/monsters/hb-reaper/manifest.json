@@ -1,0 +1,13 @@
+{
+  "source": "https://craftpix.net/product/hell-boss-sprite-sheets-pixel-art/",
+  "id": "hb-reaper",
+  "name": "Hell Reaper",
+  "anims": {
+    "idle": 4,
+    "walk": 6,
+    "attack": 6,
+    "hurt": 4,
+    "dead": 6
+  },
+  "frameHeight": 64
+}

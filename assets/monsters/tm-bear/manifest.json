@@ -1,0 +1,14 @@
+{
+  "source": "https://craftpix.net/product/tiny-monsters-pixel-art-pack/",
+  "id": "tm-bear",
+  "name": "Cave Bear",
+  "sheet": "Pack6",
+  "anims": {
+    "idle": 4,
+    "walk": 6,
+    "attack": 6,
+    "hurt": 4,
+    "dead": 6
+  },
+  "frameHeight": 48
+}

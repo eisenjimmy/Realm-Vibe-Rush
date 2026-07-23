@@ -1,0 +1,65 @@
+{
+  "source": "https://craftpix.net/product/anime-demon-sprite-sheet-pixel-art-pack/",
+  "anims": {
+    "idle": {
+      "frames": 6,
+      "w": 150,
+      "h": 138,
+      "fps": 8
+    },
+    "walk": {
+      "frames": 8,
+      "w": 106,
+      "h": 149,
+      "fps": 10
+    },
+    "attack": {
+      "frames": 7,
+      "w": 199,
+      "h": 217,
+      "fps": 8
+    },
+    "hurt": {
+      "frames": 3,
+      "w": 115,
+      "h": 147,
+      "fps": 8
+    },
+    "dead": {
+      "frames": 8,
+      "w": 136,
+      "h": 161,
+      "fps": 8
+    }
+  },
+  "game": {
+    "frameH": 72,
+    "anims": {
+      "idle": {
+        "n": 6,
+        "w": 78,
+        "h": 72
+      },
+      "walk": {
+        "n": 8,
+        "w": 51,
+        "h": 72
+      },
+      "attack": {
+        "n": 7,
+        "w": 66,
+        "h": 72
+      },
+      "hurt": {
+        "n": 3,
+        "w": 56,
+        "h": 72
+      },
+      "dead": {
+        "n": 8,
+        "w": 60,
+        "h": 72
+      }
+    }
+  }
+}

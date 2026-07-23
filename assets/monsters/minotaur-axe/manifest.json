@@ -1,0 +1,13 @@
+{
+  "source": "https://craftpix.net/product/2d-fantasy-minotaurs-sprite-sheets/",
+  "id": "minotaur-axe",
+  "name": "Minotaur (Axe)",
+  "anims": {
+    "idle": 7,
+    "walk": 7,
+    "attack": 7,
+    "hurt": 7,
+    "dead": 7
+  },
+  "frameHeight": 96
+}

@@ -1,0 +1,13 @@
+{
+  "source": "https://craftpix.net/product/pixel-art-slime-enemies-top-down-sprite-pack/",
+  "id": "slime-poison",
+  "name": "Poison Slime",
+  "anims": {
+    "idle": 6,
+    "walk": 8,
+    "attack": 4,
+    "hurt": 4,
+    "dead": 6
+  },
+  "frameHeight": 48
+}

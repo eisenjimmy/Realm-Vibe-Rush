@@ -1,0 +1,34 @@
+{
+  "source": "https://craftpix.net/product/dragon-pixel-art-character-sprite-sheets-pack/",
+  "name": "Crimson Dragon",
+  "game": {
+    "frameH": 72,
+    "anims": {
+      "idle": {
+        "n": 6,
+        "w": 132,
+        "h": 72
+      },
+      "walk": {
+        "n": 6,
+        "w": 176,
+        "h": 72
+      },
+      "attack": {
+        "n": 4,
+        "w": 165,
+        "h": 72
+      },
+      "hurt": {
+        "n": 4,
+        "w": 131,
+        "h": 72
+      },
+      "dead": {
+        "n": 3,
+        "w": 194,
+        "h": 72
+      }
+    }
+  }
+}
