@@ -8,7 +8,7 @@
     "pal": { "skin": "#c9d0d8", "fur": "#a0a8b0", "cloth": "#6a7080", "cloth2": "#c06030", "metal": "#d0d8e0", "hair": "#3a2414" }
   },
   "archer": {
-    "name": "Gunner", "cls": "ranged", "element": "Normal",
+    "name": "Archer", "cls": "ranged", "element": "Normal",
     "cost": 55, "cd": 1.4, "hp": 72, "dmg": 20, "range": 210, "atk": 0.95, "speed": 54,
     "role": "ranged", "proj": "arrow", "weapon": "bow", "head": "hood", "ears": "none",
     "sprite": "swat", "spriteScale": 1.15,
