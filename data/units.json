@@ -1,11 +1,60 @@
 {
-  "_doc": "Base units. cost ∝ power (DPS+EHP budget). cls = matchup class (melee>ranged>caster>melee; support neutral). noAir=true cannot target flyers. element earned deep in the skill tree.",
-  "warrior":  { "name":"Warrior",  "cls":"melee",  "element":"Normal", "cost":50,  "cd":1.1, "hp":130, "dmg":16, "range":26,  "atk":0.75, "speed":54, "role":"melee",  "weapon":"sword", "head":"helm",  "ears":"cat", "shield":true, "pal":{"skin":"#e8b183","fur":"#d9a26a","cloth":"#a5512a","cloth2":"#f2d38a","metal":"#c9d0d8","hair":"#3a2414"} },
-  "archer":   { "name":"Archer",   "cls":"ranged", "element":"Normal", "cost":65,  "cd":1.5, "hp":78,  "dmg":21, "range":210, "atk":0.95, "speed":54, "role":"ranged", "proj":"arrow", "weapon":"bow", "head":"hood", "ears":"cat", "pal":{"skin":"#e8b183","fur":"#e6c27a","cloth":"#2f7d43","cloth2":"#8fd08a","metal":"#8a5a2a","hair":"#5a3a1c"} },
-  "barbarian":{ "name":"Barbarian","cls":"melee",  "element":"Normal", "cost":110, "cd":2.3, "hp":240, "dmg":46, "range":30,  "atk":0.9,  "speed":58, "role":"melee",  "weapon":"axe", "head":"horns", "ears":"cat", "pal":{"skin":"#e0a878","fur":"#c98f4a","cloth":"#7a4a24","cloth2":"#caa15a","metal":"#b6bcc4","hair":"#c9922f"} },
-  "catapult": { "name":"Catapult", "cls":"ranged", "element":"Normal", "cost":145, "cd":4.0, "hp":120, "dmg":72, "range":250, "atk":2.0,  "speed":30, "role":"ranged", "proj":"boulder", "splash":52, "noAir":true, "siege":true, "weapon":"catapult", "head":"none", "ears":"none", "pal":{"skin":"#caa15a","fur":"#8a5a2a","cloth":"#6b4a24","cloth2":"#caa15a","metal":"#9aa0a6","hair":"#3a2414"} },
-  "mage":     { "name":"Mage",     "cls":"caster", "element":"Normal", "cost":175, "cd":4.0, "hp":130, "dmg":36, "range":195, "atk":1.4,  "role":"ranged", "proj":"magic", "splash":80, "weapon":"staff","head":"wizhat","ears":"cat", "speed":44, "pal":{"skin":"#e8b183","fur":"#e0d4c0","cloth":"#6a3fb0","cloth2":"#c9a2ff","metal":"#ffd766","hair":"#dddddd"} },
-  "healer":   { "name":"Healer",   "cls":"support","element":"Normal", "cost":120, "cd":3.8, "hp":170, "dmg":0,  "range":155, "atk":1.4,  "role":"healer", "heal":38, "weapon":"staff","head":"halo", "ears":"cat", "speed":46, "pal":{"skin":"#e8b183","fur":"#f0e8d8","cloth":"#e8e2d0","cloth2":"#ffe08a","metal":"#ffd766","hair":"#b58b4a"} },
-
-  "_order": ["warrior","archer","barbarian","catapult","mage","healer"]
+  "_doc": "Lean roster — asset-based only. 8 units: clear roles, rebalanced costs.",
+  "warrior": {
+    "name": "Knight", "cls": "melee", "element": "Normal",
+    "cost": 50, "cd": 1.1, "hp": 160, "dmg": 15, "range": 28, "atk": 0.8, "speed": 50,
+    "role": "melee", "weapon": "sword", "head": "helm", "ears": "none", "shield": true,
+    "sprite": "fantasy-knight", "spriteScale": 1.3,
+    "pal": { "skin": "#c9d0d8", "fur": "#a0a8b0", "cloth": "#6a7080", "cloth2": "#c06030", "metal": "#d0d8e0", "hair": "#3a2414" }
+  },
+  "archer": {
+    "name": "Gunner", "cls": "ranged", "element": "Normal",
+    "cost": 55, "cd": 1.4, "hp": 72, "dmg": 20, "range": 210, "atk": 0.95, "speed": 54,
+    "role": "ranged", "proj": "arrow", "weapon": "bow", "head": "hood", "ears": "none",
+    "sprite": "swat", "spriteScale": 1.15,
+    "pal": { "skin": "#c9b8a0", "fur": "#3a4a5a", "cloth": "#2f7d43", "cloth2": "#8fd08a", "metal": "#8a5a2a", "hair": "#1a1a1a" }
+  },
+  "amazon": {
+    "name": "Amazon", "cls": "melee", "element": "Normal",
+    "cost": 70, "cd": 1.3, "hp": 140, "dmg": 24, "range": 30, "atk": 0.78, "speed": 56,
+    "role": "melee", "weapon": "sword", "head": "none", "ears": "none",
+    "sprite": "amazon-sword", "spriteScale": 1.28,
+    "pal": { "skin": "#8a4a2a", "fur": "#5a2a18", "cloth": "#2a1a18", "cloth2": "#c9a020", "metal": "#c9d0d8", "hair": "#1a1010" }
+  },
+  "barbarian": {
+    "name": "Axewoman", "cls": "melee", "element": "Normal",
+    "cost": 100, "cd": 2.0, "hp": 230, "dmg": 42, "range": 32, "atk": 0.95, "speed": 52,
+    "role": "melee", "weapon": "axe", "head": "none", "ears": "none",
+    "sprite": "amazon-axe", "spriteScale": 1.3,
+    "pal": { "skin": "#e8b183", "fur": "#d9a26a", "cloth": "#3a2a28", "cloth2": "#c9922f", "metal": "#c9d0d8", "hair": "#e8c060" }
+  },
+  "healer": {
+    "name": "Priestess", "cls": "support", "element": "Normal",
+    "cost": 90, "cd": 3.4, "hp": 155, "dmg": 0, "range": 160, "atk": 1.35, "speed": 46,
+    "role": "healer", "heal": 36, "weapon": "staff", "head": "halo", "ears": "none",
+    "sprite": "priest", "spriteScale": 1.25,
+    "pal": { "skin": "#e8b8a0", "fur": "#c08070", "cloth": "#f0e8e0", "cloth2": "#e0a040", "metal": "#ffd766", "hair": "#8a2040" }
+  },
+  "mage": {
+    "name": "Reaper", "cls": "caster", "element": "Normal",
+    "cost": 150, "cd": 3.6, "hp": 115, "dmg": 34, "range": 190, "atk": 1.45, "speed": 42,
+    "role": "ranged", "proj": "magic", "splash": 70, "weapon": "staff", "head": "none", "ears": "none",
+    "sprite": "hb-reaper", "spriteScale": 1.35,
+    "pal": { "skin": "#c8d0c0", "fur": "#2a4a3a", "cloth": "#1a5a3a", "cloth2": "#6dff8a", "metal": "#a0c0a0", "hair": "#1a2020" }
+  },
+  "samurai": {
+    "name": "Samurai", "cls": "melee", "element": "Normal",
+    "cost": 85, "cd": 1.5, "hp": 150, "dmg": 28, "range": 30, "atk": 0.85, "speed": 52,
+    "role": "melee", "weapon": "sword", "head": "none", "ears": "none",
+    "sprite": "samurai", "spriteScale": 1.2,
+    "pal": { "skin": "#e8b183", "fur": "#d9a26a", "cloth": "#8a2a2a", "cloth2": "#e8e0d0", "metal": "#c9d0d8", "hair": "#f0f0f0" }
+  },
+  "dragon": {
+    "name": "Dragon", "cls": "caster", "element": "Fire",
+    "cost": 200, "cd": 3.5, "hp": 300, "dmg": 40, "range": 195, "atk": 1.5, "speed": 36,
+    "role": "ranged", "proj": "magic", "splash": 72, "weapon": "breath", "head": "none", "ears": "none",
+    "sprite": "dragon-red", "spriteScale": 1.5,
+    "pal": { "skin": "#e23b3b", "fur": "#8a1a2a", "cloth": "#4a1020", "cloth2": "#ffd766", "metal": "#c9a020", "hair": "#3a0a10" }
+  },
+  "_order": ["warrior", "archer", "amazon", "barbarian", "healer", "mage", "samurai", "dragon"]
 }

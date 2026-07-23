@@ -222,6 +222,7 @@ Every button is deliberately **juicy** — squash-and-stretch pops, click blips,
 Realm Vibe Rush/
 ├── index.html            # the entire game (canvas + audio + logic + UI)
 ├── README.md             # you are here
+├── assets/ui/            # Kenney free GUI sprites (panels, buttons, bars, borders)
 ├── data/                 # JSON content (source of truth when served)
 │   ├── units.json        # 6 playable units (stats + class + look + base element)
 │   ├── enemies.json      # enemy roster (mouse, brute, slinger, warlock, yeti, flying bat)
@@ -269,7 +270,29 @@ The same `buildLevels()` body is mirrored inside `index.html`. Tweak the difficu
 
 ## 🙏 Credits & licensing
 
-**Everything in the game is original and self-contained:** all character/environment art is **drawn procedurally on canvas**, and all music & SFX are **synthesized at runtime via the Web Audio API**. There are **no external image or audio files** — nothing to license, attribute, or download. The game runs fully offline.
+**Gameplay art & audio (original):** characters and environments are **drawn procedurally on canvas**; music & SFX are **synthesized at runtime via the Web Audio API**.
+
+**UI sprites (free GUI packs):**
+
+| Pack | Link | License | Used for |
+|------|------|---------|----------|
+| **Complete UI Book Styles** (TravelBook Lite) | https://crusenho.itch.io/complete-ui-book-styles-pack | Free personal/commercial; **credit required**; no resale | Shop book UI, buttons, slots, icons |
+| **Basic Pixel Health bar and Scroll bar** | https://bdragon1727.itch.io/basic-pixel-health-bar-and-scroll-bar | Free non-commercial; contribute for commercial | Keep HP bars |
+| **Kenney UI / Fantasy Borders** | kenney.nl / itch | CC0 | Optional extras in `assets/ui/` |
+
+Local copies: `assets/ui/` (see `assets/ui/CREDITS.md`).
+
+**Monster sprites:**
+
+| Pack | Link | Used for |
+|------|------|----------|
+| **Anime Demon Sprite Sheet Pixel Art Pack** (CraftPix) | https://craftpix.net/product/anime-demon-sprite-sheet-pixel-art-pack/ | Enemy **Night Succubus** (`demon`) — `assets/monsters/anime-demon/` |
+| **SWAT 2D Pixel Art Character Sprite Pack** (CraftPix) | https://craftpix.net/product/swat-2d-pixel-art-character-sprite-pack/ | Enemy **Rogue SWAT** (`swat`) — `assets/monsters/swat/` |
+| **Free Pixel Art Tiny Hero Sprites** (CraftPix freebie) | https://craftpix.net/freebies/free-pixel-art-tiny-hero-sprites/ | Playable **Blue / Kitty / Ghost Buddy** — `assets/monsters/tiny-*` |
+| **Free Samurai Pixel Art Sprite Sheets** (CraftPix freebie) | https://craftpix.net/freebies/free-samurai-pixel-art-sprite-sheets/ | Playable **Samurai** — `assets/monsters/samurai/` |
+| **Dragon Pixel Art Character Sprite Sheets Pack** (CraftPix) | https://craftpix.net/product/dragon-pixel-art-character-sprite-sheets-pack/ | Playable + enemy **Crimson / Gold Dragon** — `assets/monsters/dragon-*` |
+
+Demon & SWAT are **paid** packs (marketing-sheet slices for local demo). Tiny Heroes is a **freebie** (royalty-free; credit CraftPix).
 
 **Suggested project license:** MIT.
 
